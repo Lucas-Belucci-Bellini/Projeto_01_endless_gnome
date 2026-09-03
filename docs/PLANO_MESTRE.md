@@ -16,56 +16,118 @@ O repositório contém uma base jogável/prototípica de personagem, inimigo, ce
 
 Principais pontos técnicos encontrados:
 
-- Projeto Godot 4.4.
-- Cena de teste com jogador, TileMap, câmera e dois inimigos.
-- Jogador baseado em CharacterBody2D.
-- Movimento horizontal, pulo, gravidade e animações idle/walking.
-- HitBox do jogador e HitBox do inimigo.
-- Inimigo com patrulha simples baseada em Timer.
-- Tela de título criada, mas o fluxo para a cena de jogo precisa ser consolidado.
-- Menu de configurações iniciado, porém volume/SFX ainda não estão implementados.
-- Estrutura de arquivos possui cópias/projetos antigos e um ZIP do projeto.
-- O nome configurado no project.godot ainda é genérico ("package").
+- Existem múltiplas cópias/projetos dentro do repositório.
+- Existem pelo menos duas linhas de implementação de gameplay.
+- Uma linha trabalha com plataforma/pulo e `PlayerController`.
+- Outra linha trabalha com movimentação top-down, `Player`, `Enemy`, `HitBox` e `HurtBox`.
+- Existem referências e contratos que ainda precisam ser consolidados.
+- Existem pontos de comportamento ainda não validados em runtime.
 
-## 3. Objetivo da primeira fase
+## 3. Objetivo da auditoria atual
 
-Antes de ampliar o conteúdo, fechar um vertical slice mínimo:
+Antes de ampliar o conteúdo, descobrir como o projeto realmente funciona.
 
-Menu → Level 01 → movimentação → combate → dano → morte → recompensa → objetivo → conclusão da fase.
+A sequência desta etapa é:
 
-Essa sequência passa a ser o contrato mínimo de uma Demo funcional.
+```text
+mapear repositório
+→ mapear projetos
+→ mapear cenas
+→ mapear scripts
+→ mapear dependências
+→ comentar código
+→ identificar contratos
+→ encontrar divergências
+→ testar runtime
+→ registrar problemas
+```
 
-## 4. Princípios
+Nenhum bug deve ser apagado durante a investigação sem registrar primeiro a evidência e a causa provável.
 
-### 4.1 Primeiro estabilidade, depois conteúdo
+## 4. Princípio de documentação de longo prazo
 
-Não adicionar Boss, loja, vários níveis ou sistemas paralelos enquanto o loop básico não estiver confiável.
+Documentação é parte da engenharia do jogo.
 
-### 4.2 Uma responsabilidade por sistema
+Antes de adicionar comportamento relevante a uma entidade ou sistema, deve existir um contrato mínimo documentado.
 
-Cada sistema deve ter um objetivo claro. Evitar colocar vida, combate, UI e progressão dentro do mesmo script.
+A regra é:
 
-### 4.3 Cenas reutilizáveis
+```text
+requisito
+→ contrato
+→ arquitetura
+→ núcleo mínimo
+→ teste
+→ comportamento adicional
+→ teste
+→ integração
+→ documentação final
+```
 
-Player, Enemy, portas, itens, pickups, UI e componentes de gameplay devem ser reutilizáveis em diferentes fases.
+Não é necessário prever tudo antecipadamente. É necessário registrar cedo as decisões que criam dependências.
 
-### 4.4 Tudo que entra no jogo precisa ser testável
+## 5. Exemplo de evolução de entidade
 
-Toda mecânica nova deve vir com critérios de aceite e um teste manual mínimo. Sistemas críticos devem ganhar testes automatizados quando viável.
+Uma nova entidade, como uma aranha, não deve começar pelo comportamento mais visível.
 
-### 4.5 Main deve permanecer estável
+Primeiro:
 
-O trabalho normal acontece em branches. A main representa o estado integrado do projeto.
+```text
+Spider
+├── cena
+├── script
+├── sprite
+├── collider
+├── estado inicial
+└── componentes básicos
+```
 
-## 5. Fases macro
+Depois:
 
-### Fase 0 — Organização
+```text
+Health/HurtBox
+→ teste
+→ Idle
+→ teste
+→ Patrol
+→ teste
+→ Detect
+→ teste
+→ Chase
+→ teste
+→ Attack
+→ teste
+→ Death
+→ teste
+```
+
+Somente depois:
+
+```text
+animação final
+som
+partículas
+game feel
+```
+
+Ver `ESPECIFICACAO_DE_ENTIDADE.md` e `PROCESSO_DE_DESENVOLVIMENTO.md`.
+
+## 6. Fases macro
+
+### Fase 0 — Auditoria e organização
 
 - Definir diretório oficial do projeto Godot.
-- Eliminar ambiguidade entre cópias antigas, ZIPs e projeto oficial.
-- Padronizar nome do projeto.
-- Definir convenções de cena, script, assets e branches.
-- Registrar dívida técnica.
+- Catalogar todas as cópias.
+- Identificar projeto ativo.
+- Identificar `project.godot` oficial.
+- Identificar Player oficial.
+- Identificar Enemy oficial.
+- Identificar Level oficial.
+- Mapear cenas e scripts.
+- Validar referências `res://`.
+- Documentar collision layers/masks.
+- Registrar sinais e contratos.
+- Remover ambiguidades arquiteturais somente depois da auditoria.
 
 ### Fase 1 — Fundação jogável
 
@@ -120,9 +182,25 @@ O trabalho normal acontece em branches. A main representa o estado integrado do 
 - Balanceamento.
 - Performance.
 - Acessibilidade básica.
+- Animações finais.
+- Game feel.
 - Build da Demo.
 
-## 6. Critérios para considerar a Demo pronta
+### Fase 7 — QA e release
+
+- Teste funcional completo.
+- Teste de regressão.
+- Teste de controles.
+- Teste de resolução.
+- Teste de áudio.
+- Teste de salvar/carregar.
+- Teste de reinício.
+- Teste de build limpa.
+- Build para plataforma-alvo.
+- Checklist de release.
+- Versão marcada com tag.
+
+## 7. Critérios para considerar a Demo pronta
 
 A Demo só deve ser considerada pronta quando:
 
@@ -137,8 +215,9 @@ A Demo só deve ser considerada pronta quando:
 - O jogo não depende de arquivos de teste esquecidos.
 - Não há erros críticos conhecidos.
 - O projeto pode ser clonado e aberto por outro integrante seguindo a documentação.
+- Cada sistema crítico possui contrato e teste documentados.
 
-## 7. Fora do caminho crítico inicial
+## 8. Fora do caminho crítico inicial
 
 Os seguintes itens não devem bloquear o primeiro vertical slice:
 
@@ -149,9 +228,10 @@ Os seguintes itens não devem bloquear o primeiro vertical slice:
 - lore extensa;
 - sistemas de personalização complexos;
 - multiplayer;
-- otimizações prematuras.
+- otimizações prematuras;
+- animação final antes da estabilidade funcional.
 
-## 8. Definição de pronto global
+## 9. Definição de pronto global
 
 Uma tarefa é considerada DONE quando:
 
@@ -162,11 +242,38 @@ Uma tarefa é considerada DONE quando:
 5. Documentação relevante foi atualizada.
 6. O commit segue o padrão do projeto.
 7. O branch pode ser revisado e integrado sem trabalho escondido.
+8. O comentário/documentação do código continua verdadeiro.
 
-## 9. Regra de evolução
+## 10. Regra de evolução
 
 O projeto deve crescer por ciclos curtos:
 
 **planejar → implementar → testar → documentar → revisar → integrar**.
 
 Nunca considerar “código escrito” igual a “feature pronta”.
+
+Nunca considerar “documentado” igual a “funcional”.
+
+## 11. Ordem da atual auditoria
+
+```text
+1. Inventário do repositório
+2. Mapa de código
+3. Mapa de cenas
+4. Mapa de dependências
+5. Comentação dos scripts
+6. Contratos de entidades e sistemas
+7. Registro de problemas
+8. Diagnóstico de runtime
+9. Decisão de arquitetura oficial
+10. Correções mínimas
+11. Regressão
+12. Refatoração
+13. Features novas
+14. Polimento/animação
+15. Release
+```
+
+## 12. Regra final
+
+**Primeiro precisamos conseguir explicar o jogo inteiro. Depois precisamos conseguir executá-lo de forma previsível. Só então precisamos fazê-lo crescer.**
