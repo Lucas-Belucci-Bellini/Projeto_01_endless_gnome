@@ -1,6 +1,6 @@
 # Documentação do Endless Gnome
 
-Esta pasta concentra a documentação de planejamento e desenvolvimento.
+Esta pasta concentra a documentação de planejamento, arquitetura, auditoria e desenvolvimento.
 
 ## Documentos principais
 
@@ -12,29 +12,48 @@ Esta pasta concentra a documentação de planejamento e desenvolvimento.
 - [Level 01 e Fluxo](NIVEL_01_E_FLUXO.md) — desenho da primeira experiência jogável.
 - [QA e Testes](QA_E_TESTES.md) — estratégia de validação.
 - [Definition of Done](DEFINITION_OF_DONE.md) — critérios para encerrar tarefas.
+- [Auditoria Completa](AUDITORIA_COMPLETA.md) — diagnóstico técnico do estado encontrado.
+- [Registro de Problemas](REGISTRO_DE_PROBLEMAS.md) — backlog de problemas confirmados ou em investigação.
+- [Padrão de Comentários](PADRAO_DE_COMENTARIOS.md) — padrão usado para instrumentar o código durante a auditoria.
 
-## Como usar esta documentação
+## Fluxo de trabalho
 
-### Antes de programar
+### 1. Entender
 
-Leia o Plano Mestre, o Roadmap e a especificação do sistema que será alterado.
+Ler a documentação do requisito antes de programar.
 
-### Durante a programação
+### 2. Auditar
 
-Mantenha a implementação dentro das responsabilidades descritas na Arquitetura.
+Verificar código, cenas, referências, dependências e problemas conhecidos.
 
-### Antes do Pull Request
+### 3. Planejar
 
-Use o QA e a Definition of Done para validar a mudança.
+Registrar a alteração no roadmap/issue e definir critérios de aceite.
 
-### Depois da integração
+### 4. Implementar
 
-Atualize o Roadmap e registre decisões relevantes.
+Trabalhar em branch específica, evitando misturar correção, refatoração e feature sem necessidade.
+
+### 5. Testar
+
+Executar smoke test, teste funcional e regressão dos sistemas afetados.
+
+### 6. Documentar
+
+Atualizar arquitetura, problemas, roadmap e comentários relevantes.
+
+### 7. Revisar
+
+Abrir Pull Request com evidências do teste e impacto da mudança.
 
 ## Fonte da verdade
 
-O código é a fonte da verdade para o comportamento existente.
+O código é a fonte da verdade para o comportamento que realmente existe.
 
 A documentação é a fonte da verdade para requisitos, decisões e estado planejado.
 
-Quando código e documentação divergirem, a divergência deve ser registrada e resolvida deliberadamente; não deve ser escondida.
+Quando código e documentação divergirem, a divergência deve ser registrada e resolvida deliberadamente.
+
+## Regra desta fase de auditoria
+
+Durante a primeira passagem, comentários e documentação devem explicar o código existente sem esconder problemas e, sempre que possível, sem alterar a lógica. Correções entram em mudanças separadas para preservar a causa original dos bugs.
