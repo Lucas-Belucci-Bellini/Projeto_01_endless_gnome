@@ -13,8 +13,10 @@ Esta pasta concentra a documentação de planejamento, arquitetura, auditoria e 
 - [QA e Testes](QA_E_TESTES.md) — estratégia de validação.
 - [Definition of Done](DEFINITION_OF_DONE.md) — critérios para encerrar tarefas.
 - [Auditoria Completa](AUDITORIA_COMPLETA.md) — diagnóstico técnico do estado encontrado.
+- [Mapa de Código](MAPA_DE_CODIGO.md) — relação arquivo → responsabilidade → dependências.
 - [Registro de Problemas](REGISTRO_DE_PROBLEMAS.md) — backlog de problemas confirmados ou em investigação.
 - [Padrão de Comentários](PADRAO_DE_COMENTARIOS.md) — padrão usado para instrumentar o código durante a auditoria.
+- [Diagnóstico de Runtime](DIAGNOSTICO_RUNTIME.md) — roteiro para reproduzir as falhas em execução.
 
 ## Fluxo de trabalho
 
