@@ -1,6 +1,6 @@
 # Documentação do Endless Gnome
 
-Esta pasta concentra a documentação de planejamento, arquitetura, auditoria e desenvolvimento.
+Esta pasta concentra a documentação de planejamento, arquitetura, auditoria, desenvolvimento e evolução de longo prazo.
 
 ## Documentos principais
 
@@ -9,6 +9,9 @@ Esta pasta concentra a documentação de planejamento, arquitetura, auditoria e 
 - [Game Design](GAME_DESIGN.md) — visão e regras de experiência do jogo.
 - [Arquitetura](ARQUITETURA.md) — organização técnica e responsabilidades.
 - [Especificação de Sistemas](ESPECIFICACAO_SISTEMAS.md) — contrato esperado para cada sistema.
+- [Especificação de Entidades](ESPECIFICACAO_DE_ENTIDADE.md) — modelo para documentar Players, inimigos, NPCs e objetos antes de ampliar comportamento.
+- [Processo de Desenvolvimento](PROCESSO_DE_DESENVOLVIMENTO.md) — ciclo recomendado para criar, testar e integrar funcionalidades.
+- [Princípios de Documentação](PRINCIPIOS_DE_DOCUMENTACAO.md) — política de documentação de curto e longo prazo.
 - [Level 01 e Fluxo](NIVEL_01_E_FLUXO.md) — desenho da primeira experiência jogável.
 - [QA e Testes](QA_E_TESTES.md) — estratégia de validação.
 - [Definition of Done](DEFINITION_OF_DONE.md) — critérios para encerrar tarefas.
@@ -17,6 +20,44 @@ Esta pasta concentra a documentação de planejamento, arquitetura, auditoria e 
 - [Registro de Problemas](REGISTRO_DE_PROBLEMAS.md) — backlog de problemas confirmados ou em investigação.
 - [Padrão de Comentários](PADRAO_DE_COMENTARIOS.md) — padrão usado para instrumentar o código durante a auditoria.
 - [Diagnóstico de Runtime](DIAGNOSTICO_RUNTIME.md) — roteiro para reproduzir as falhas em execução.
+- [Animação e Polimento](ANIMACAO_E_POLIMENTO.md) — frente futura de animação, naturalidade e game feel.
+
+## Filosofia do projeto
+
+A documentação não é uma etapa burocrática colocada depois do código. Ela é parte do desenvolvimento.
+
+Antes de ampliar um sistema relevante, o projeto deve conseguir explicar:
+
+```text
+O que existe?
+Por que existe?
+Qual é o contrato?
+Quem depende disso?
+O que pode quebrar?
+Como será testado?
+```
+
+Uma entidade nova deve primeiro possuir um núcleo funcional e documentado. Depois recebe comportamentos adicionais, um por vez.
+
+Exemplo:
+
+```text
+Spider
+→ cena/script
+→ núcleo funcional
+→ estado inicial
+→ Health/HurtBox
+→ teste
+→ movimento
+→ teste
+→ detecção
+→ teste
+→ perseguição
+→ teste
+→ ataque
+→ teste
+→ polimento
+```
 
 ## Fluxo de trabalho
 
@@ -32,19 +73,23 @@ Verificar código, cenas, referências, dependências e problemas conhecidos.
 
 Registrar a alteração no roadmap/issue e definir critérios de aceite.
 
-### 4. Implementar
+### 4. Definir contrato
+
+Documentar responsabilidade, estado, entradas, saídas e dependências antes da implementação relevante.
+
+### 5. Implementar
 
 Trabalhar em branch específica, evitando misturar correção, refatoração e feature sem necessidade.
 
-### 5. Testar
+### 6. Testar
 
 Executar smoke test, teste funcional e regressão dos sistemas afetados.
 
-### 6. Documentar
+### 7. Documentar
 
-Atualizar arquitetura, problemas, roadmap e comentários relevantes.
+Atualizar arquitetura, problemas, roadmap, entidade/sistema e comentários relevantes.
 
-### 7. Revisar
+### 8. Revisar
 
 Abrir Pull Request com evidências do teste e impacto da mudança.
 
