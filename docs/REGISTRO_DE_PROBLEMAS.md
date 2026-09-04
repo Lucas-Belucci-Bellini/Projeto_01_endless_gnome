@@ -40,4 +40,11 @@ Validar estaticamente todas as chamadas de dano, verificar referências e public
 
 ## Commits
 
-A lista será preenchida após cada commit e publicação no GitHub.
+Commits publicados na branch `docs/auditoria-fundacao`:
+
+| SHA | Descrição |
+|---|---|
+| `2b6fb20` | `docs: document foundational gameplay contracts` — criou o mapa de código e os contratos documentados de Player, Enemy, combate e World. |
+| `8cfd191` | `fix: align hurtbox damage contract` — encaminhou a posição global da HitBox para `take_damage` e atualizou o registro da auditoria. |
+
+Pull request sugerido pelo GitHub: [docs/auditoria-fundacao](https://github.com/Lucas-Belucci-Bellini/Projeto_01_endless_gnome/pull/new/docs/auditoria-fundacao).
