@@ -8,9 +8,9 @@ O fluxo esperado é `Player → HitBox → HurtBox → alvo → dano → reaçã
 |---|---|---|---|
 | Player | `HitBox.get_overlapping_areas()` | `target.take_damage(damage, global_position)` após `area.get_parent()` | Compatível com Player e Enemy. |
 | Enemy | Proximidade menor que 45 | `player.take_damage(damage, global_position)` diretamente | Compatível com o Player, mas ignora a HitBox do Enemy. |
-| HurtBox | Sinal `area_entered` | `owner.take_damage(hitbox.damage)` | Incompatível com os métodos atuais, que exigem também `attacker_pos`. |
+| HurtBox | Sinal `area_entered` | `owner.take_damage(hitbox.damage, hitbox.global_position)` | Compatível com as assinaturas atuais e fornece origem para knockback. |
 
-A inconsistência da HurtBox é um problema real de contrato. A menor correção segura é aceitar a origem do dano como propriedade opcional da HitBox e encaminhar dois argumentos, mantendo compatibilidade com a chamada atual do Player. Essa correção deve ser feita somente após o registro deste documento.
+A inconsistência da HurtBox era um problema real de contrato. A menor correção segura foi aplicada: a HurtBox agora encaminha `hitbox.damage` e `hitbox.global_position`, mantendo o dano e fornecendo a origem necessária para knockback sem alterar Player ou Enemy.
 
 ## Componentes
 

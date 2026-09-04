@@ -14,4 +14,4 @@ func _on_area_entered(hitbox):
 	if hitbox is HitBox:
 		# Se o dono tiver método de dano
 		if owner != null and owner.has_method("take_damage"):
-			owner.take_damage(hitbox.damage)
+			owner.take_damage(hitbox.damage, hitbox.global_position)

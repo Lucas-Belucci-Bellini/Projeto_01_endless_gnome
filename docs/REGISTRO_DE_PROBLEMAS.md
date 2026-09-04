@@ -6,7 +6,7 @@ Auditoria incremental do projeto Endless Gnome, iniciada em 4 de setembro de 202
 
 ## Descoberto
 
-A cena principal está em `projeto-01-endless-gnome-main/level.tscn` e usa diretamente `player.gd` e `enemy.gd`. Existe uma segunda linha de protótipo em `teste-grupodejogos-dialogos-at-5/`, além de scripts e cenas de menu duplicados na raiz. O repositório também contém um ZIP e um arquivo temporário versionado.
+A cena principal está em `projeto-01-endless-gnome-main/level.tscn` e usa diretamente `player.gd` e `enemy.gd`. Existe uma linha de protótipo em `teste-grupodejogos-dialogos-at-5/` e uma cópia adicional do projeto em `primeiro_projeto_gnomo/primeiro-projeto-gnomo/`, além de scripts e cenas de menu duplicados na raiz. A cópia adicional declara Godot 4.6, enquanto o projeto ativo declara 4.7. O repositório também contém um ZIP e um arquivo temporário versionado. Nenhuma cópia potencialmente legada foi removida ou modificada por falta de evidência de segurança.
 
 O Player e o Enemy funcionam como `CharacterBody2D`, concentram movimentação e combate em seus scripts e dependem de caminhos de nós específicos. O Enemy encontra o Player pela variável estática `Player.instance`. O Player consulta áreas sobrepostas para atacar; o Enemy ataca diretamente o método do Player.
 
@@ -16,7 +16,7 @@ Foi confirmada uma incompatibilidade entre `HurtBox._on_area_entered()` e as ass
 
 ## Corrigido
 
-Nesta etapa de documentação, nenhuma regra de gameplay foi alterada. A correção mínima do contrato HurtBox foi identificada e será isolada em commit próprio, após esta documentação.
+A HurtBox agora chama `take_damage(hitbox.damage, hitbox.global_position)`. Isso alinha o componente às assinaturas existentes de Player e Enemy e preserva a origem necessária para knockback. Nenhum outro comportamento de gameplay foi alterado.
 
 ## Documentado
 
@@ -36,7 +36,7 @@ Permanecem sem correção nesta rodada, até haver evidência adicional: depend�
 
 ## Próximo passo
 
-Corrigir apenas a passagem da origem do dano pela HurtBox, usando a posição global da HitBox como origem, sem refatorar Player ou Enemy. Depois validar estaticamente todas as chamadas e publicar o commit correspondente.
+Validar estaticamente todas as chamadas de dano, verificar referências e publicar o commit da correção. A decisão sobre World, duplicações e limpeza deve permanecer separada até existir evidência de segurança.
 
 ## Commits
 

@@ -17,7 +17,7 @@ Esta rodada analisou o estado versionado do repositório `Projeto_01_endless_gno
 
 ## Duplicações e protótipos
 
-Há uma segunda árvore de projeto em `teste-grupodejogos-dialogos-at-5/`, com `entities/player.gd`, `entities/player.tscn`, NPC e diálogo. Ela possui seu próprio `project.godot` e não é referenciada pela cena principal do projeto ativo.
+Há uma segunda árvore de projeto em `teste-grupodejogos-dialogos-at-5/`, com `entities/player.gd`, `entities/player.tscn`, NPC e diálogo. Ela possui seu próprio `project.godot` e não é referenciada pela cena principal do projeto ativo. Também foi confirmada uma cópia adicional em `primeiro_projeto_gnomo/primeiro-projeto-gnomo/`, com os mesmos scripts de gameplay e `level.tscn`; sua configuração declara Godot 4.6, enquanto o projeto ativo declara 4.7. Essa cópia foi tratada como potencialmente legada e não foi alterada nesta rodada.
 
 Também existe um diretório `projeto-01-endless-gnome-main/` contendo o projeto Godot principal, enquanto o diretório raiz do repositório contém scripts e cenas de menu duplicados, um ZIP (`2026_gnomo-game-code.zip`) e o arquivo temporário `level.tscn700895048.tmp` dentro do projeto principal. A auditoria não removeu esses itens porque ainda não há evidência suficiente de que sejam obsoletos ou não utilizados por colaboradores.
 
